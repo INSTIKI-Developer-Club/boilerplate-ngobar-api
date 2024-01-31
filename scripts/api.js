@@ -6,18 +6,19 @@
  * bahkan untuk update data dan delete data ke API
  */
 
-const BASE_URL = "http://localhost:5000";
+const BASE_URL = "http://128.199.102.21";
 
 export async function getQuestionById({ id = 10 }) {
   try {
-    // const response = await fetch(`${BASE_URL}/api/quiz/${id}`, {
-    //   method: "GET",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // });
-    // const result = await response.json();
-    // return result?.data;
+    const response = await fetch(`${BASE_URL}/api/quiz/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const result = await response.json();
+
+    return result?.data;
   } catch (error) {
     console.error("Error Nih: ", {
       error,
@@ -27,14 +28,15 @@ export async function getQuestionById({ id = 10 }) {
 
 export async function getQuestions() {
   try {
-    // const response = await fetch(`${BASE_URL}/api/quiz`, {
-    //   method: "GET",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // });
-    // const result = await response.json();
-    // return result?.data;
+    const response = await fetch(`${BASE_URL}/api/quizzes`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const result = await response.json();
+    return result?.data;
   } catch (error) {
     console.error("Error Nih: ", {
       error,
@@ -42,19 +44,55 @@ export async function getQuestions() {
   }
 }
 
-export async function createQuestion({ payload }) {
+export async function createQuestion({ payload = undefined }) {
   try {
-    // const response = await fetch(`${BASE_URL}/api/quiz`, {
-    //   method: "POST",
-    //   body: JSON.stringify(payload),
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // });
+    const response = await fetch(`${BASE_URL}/api/quiz`, {
+      method: "POST",
+      body: JSON.stringify(payload),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
-    // const result = await response.json();
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error("Error Nih: ", {
+      error,
+    });
+  }
+}
 
-    // return result;
+export async function updateQuestionById({ id = 1, payload = undefined }) {
+  try {
+    const response = await fetch(`${BASE_URL}/api/quiz/${id}/update`, {
+      method: "PUT",
+      body: JSON.stringify(payload),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error("Error Nih: ", {
+      error,
+    });
+  }
+}
+
+export async function deleteQuestionById({ id = 1 }) {
+  try {
+    const response = await fetch(`${BASE_URL}/api/quiz/${id}/delete`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const result = await response.json();
+    return result;
   } catch (error) {
     console.error("Error Nih: ", {
       error,
